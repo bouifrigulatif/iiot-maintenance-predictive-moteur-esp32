@@ -13,7 +13,7 @@ const int PIN_RELAIS = 26;
 const int PIN_LED_ROUGE = 27;
 const int PIN_BUZZER = 14;
 
-// ---------- Seuils ----------
+// ---------- Seuils de protection (priorite absolue) ----------
 const float TEMP_COUPURE = 75.0;
 const float TEMP_REDEMARRE = 60.0;
 const float VIB_COUPURE = 3.0;
@@ -23,7 +23,8 @@ const int RELAIS_ON = HIGH;
 const int RELAIS_OFF = LOW;
 
 // ---------- Topics MQTT ----------
-const char* T_MES   = "usine/ligne1/moteur/mesures";      // JSON : temperature + vibration + statut
+const char* T_MES   = "usine/ligne1/moteur/mesures";      // JSON : ts + temperature + vibration + statut
+const char* T_PRED  = "usine/ligne1/moteur/prediction";   // JSON : ts + moyenne + pente + restant + etat + raison
 const char* T_STAT  = "usine/ligne1/moteur/statut";
 const char* T_DEF   = "usine/ligne1/moteur/defaut";
 const char* T_CMD   = "usine/ligne1/moteur/cmd/relais";
@@ -45,6 +46,151 @@ unsigned long derniereMesure = 0;
 unsigned long dernierEssaiMqtt = 0;
 const unsigned long PERIODE_MESURE = 2000;
 const unsigned long PERIODE_RECONNEXION = 5000;
+
+// =====================================================================
+//  MAINTENANCE PREDICTIVE (n'agit JAMAIS sur le relais : elle avertit)
+// =====================================================================
+const int   N_FEN = 15;                 // fenetre d'analyse : 15 mesures = 30 s
+const int   N_MOY = 5;                  // la moyenne mobile porte sur 5 mesures
+const int   N_MIN_PENTE = 8;            // il faut 8 mesures pour calculer une pente
+const float T_ATTENTION = 70.0;         // avertissement si la moyenne depasse 70 C
+const float T_ATTENTION_FIN = 68.0;     // retour a la normale sous 68 C (hysteresis)
+const float T_PENTE_MINI = 45.0;        // la pente n'alerte qu'au-dessus de 45 C
+const float PENTE_ATTENTION = 5.0;      // montee rapide : 5 C par minute ou plus
+const float PENTE_MIN_RESTANT = 0.3;    // sous 0,3 C/min on ne calcule pas de temps restant
+const float RESTANT_ATTENTION = 120.0;  // avertissement si coupure estimee dans moins de 120 s
+const float ALPHA_BASE = 0.02;          // vitesse d'apprentissage du comportement normal
+const float K_SIGMA = 4.0;              // seuil adaptatif : moyenne + 4 ecarts-types
+const float SIGMA_MIN = 0.05;           // ecart-type minimal (evite un seuil trop serre)
+const int   N_MIN_BASE = 15;            // mesures necessaires avant de juger la vibration
+
+float fenT[N_FEN];                      // fenetre circulaire des temperatures filtrees
+int   fenIdx = 0, fenNb = 0;
+float brut[3];                          // les 3 dernieres temperatures brutes
+int   brutNb = 0;
+float baseMu = 0, baseVar = 0.0025;
+int   vibNb = 0, vibConsec = 0;
+bool  attentionActive = false;
+
+struct Prediction {
+  bool moyenneOk, penteOk, restantOk;
+  float moyenne, pente, restant;
+  const char* etat;
+  char raison[32];
+};
+
+float mediane3(float a, float b, float c) {
+  if ((a >= b && a <= c) || (a <= b && a >= c)) return a;
+  if ((b >= a && b <= c) || (b <= a && b >= c)) return b;
+  return c;
+}
+
+float valeurFenetre(int i) {            // i = 0 : la plus ancienne ... fenNb-1 : la plus recente
+  return fenT[(fenIdx - fenNb + i + N_FEN) % N_FEN];
+}
+
+void ajouterTemperature(float t) {
+  // 1) filtre median sur 3 points : un pic isole est elimine
+  if (brutNb < 3) brutNb++;
+  brut[2] = brut[1]; brut[1] = brut[0]; brut[0] = t;
+  float filtree = (brutNb >= 3) ? mediane3(brut[0], brut[1], brut[2]) : t;
+  // 2) rangement dans la fenetre circulaire
+  fenT[fenIdx] = filtree;
+  fenIdx = (fenIdx + 1) % N_FEN;
+  if (fenNb < N_FEN) fenNb++;
+}
+
+float moyenneMobile() {
+  int n = (fenNb < N_MOY) ? fenNb : N_MOY;
+  float s = 0;
+  for (int i = fenNb - n; i < fenNb; i++) s += valeurFenetre(i);
+  return s / n;
+}
+
+// pente par regression lineaire (moindres carres), en degres C par minute
+float penteRegression() {
+  int n = fenNb;
+  double sx = 0, sy = 0, sxy = 0, sxx = 0;
+  for (int i = 0; i < n; i++) {
+    double y = valeurFenetre(i);
+    sx += i; sy += y; sxy += i * y; sxx += (double)i * i;
+  }
+  double den = n * sxx - sx * sx;
+  if (den == 0) return 0;
+  double parMesure = (n * sxy - sx * sy) / den;      // degres C par mesure
+  return (float)(parMesure * 60000.0 / PERIODE_MESURE);
+}
+
+// vibration : seuil adaptatif appris sur le fonctionnement normal
+bool analyseVibration(float vib, bool apprentissageAutorise) {
+  if (vibNb == 0) baseMu = vib;
+  float sigma = sqrtf(baseVar);
+  if (sigma < SIGMA_MIN) sigma = SIGMA_MIN;
+  bool depasse = (vibNb >= N_MIN_BASE) && (vib > baseMu + K_SIGMA * sigma);
+  vibConsec = depasse ? vibConsec + 1 : 0;
+  if (!depasse && apprentissageAutorise) {            // on n'apprend jamais pendant un defaut
+    float d = vib - baseMu;
+    baseMu += ALPHA_BASE * d;
+    baseVar = (1 - ALPHA_BASE) * (baseVar + ALPHA_BASE * d * d);
+  }
+  if (vibNb < 1000) vibNb++;
+  return vibConsec >= 2;                              // 2 mesures de suite : pas de fausse alerte
+}
+
+Prediction predire(bool mesureValide, float t, float vib, bool marche) {
+  Prediction p;
+  p.moyenneOk = p.penteOk = p.restantOk = false;
+  p.moyenne = p.pente = p.restant = 0;
+  p.raison[0] = '\0';
+
+  if (mesureValide) ajouterTemperature(t);
+  bool vibAnormale = analyseVibration(vib, marche && !attentionActive);
+
+  if (fenNb >= N_MOY) { p.moyenne = moyenneMobile(); p.moyenneOk = true; }
+  if (fenNb >= N_MIN_PENTE) { p.pente = penteRegression(); p.penteOk = true; }
+  if (p.moyenneOk && p.penteOk && p.pente >= PENTE_MIN_RESTANT) {
+    float r = (TEMP_COUPURE - p.moyenne) / p.pente * 60.0f;   // secondes avant 75 C
+    if (r < 0) r = 0;
+    if (r <= 3600) { p.restant = r; p.restantOk = true; }
+  }
+
+  if (!marche) {
+    p.etat = "ARRET";
+    attentionActive = false;
+  } else if (!p.moyenneOk) {
+    p.etat = "INIT";
+  } else {
+    float seuil = attentionActive ? T_ATTENTION_FIN : T_ATTENTION;
+    bool chaud   = p.moyenne >= seuil;
+    bool rapide  = p.penteOk && p.pente >= PENTE_ATTENTION && p.moyenne >= T_PENTE_MINI;
+    bool bientot = p.restantOk && p.restant <= RESTANT_ATTENTION;
+    if (chaud || rapide || bientot || vibAnormale) {
+      p.etat = "ATTENTION";
+      if (chaud) strcpy(p.raison, "temperature elevee");
+      else if (rapide) strcpy(p.raison, "montee rapide");
+      else if (bientot) strcpy(p.raison, "coupure proche");
+      else strcpy(p.raison, "vibration anormale");
+    } else {
+      p.etat = "NORMAL";
+    }
+    attentionActive = (strcmp(p.etat, "ATTENTION") == 0);
+  }
+  return p;
+}
+
+const char* etatPrecedent = "INIT";
+
+// Ecrit un nombre ou "null" dans un tampon (JSON valide meme sans valeur)
+void nombre(char* buf, size_t taille, bool ok, float v, int decimales) {
+  if (ok) snprintf(buf, taille, "%.*f", decimales, v);
+  else strcpy(buf, "null");
+}
+
+// Heure reelle en secondes (0 si l'heure n'est pas encore connue)
+long horodatage() {
+  time_t n = time(nullptr);
+  return (n > 1700000000) ? (long)n : 0;
+}
 
 // ---------- Publication (seulement si connecte) ----------
 void publier(const char* topic, const char* message, bool retenu = false) {
@@ -119,7 +265,7 @@ void gererReseau() {
     publier(T_STAT, moteurMarche ? "MARCHE" : "ARRET", true);
   } else {
     Serial.print("echec, code = ");
-    Serial.println(mqtt.state()); //Cette fonction ne contient aucune boucle d’attente : l’ESP32 reste réactif (sécurité locale active) même quand le réseau est tombé.
+    Serial.println(mqtt.state());
   }
 }
 
@@ -182,6 +328,12 @@ void loop() {
   gererReseau();
   mqtt.loop();
 
+  // LED rouge : clignote pendant un avertissement (moteur encore en marche)
+  if (moteurMarche) {
+    bool clignote = attentionActive && ((millis() / 300) % 2);
+    digitalWrite(PIN_LED_ROUGE, clignote ? HIGH : LOW);
+  }
+
   if (millis() - derniereMesure < PERIODE_MESURE) return;
   derniereMesure = millis();
 
@@ -197,7 +349,7 @@ void loop() {
   // 2) Validation
   bool mesureValide = !(isnan(t) || t < -40 || t > 80);
 
-  // 3) Decision locale (priorite absolue)
+  // 3) Decision locale (priorite absolue, inchangee)
   if (!mesureValide) {
     if (moteurMarche) couperMoteur("mesure invalide");
   } else if (moteurMarche) {
@@ -207,18 +359,44 @@ void loop() {
     if (!arretDistant && t < TEMP_REDEMARRE && vib < VIB_COUPURE) redemarrerMoteur();
   }
 
-  // 4) Publication : un seul message JSON avec toutes les mesures
+  // 4) Maintenance predictive (apres la decision : elle avertit, elle ne decide pas)
+  Prediction p = predire(mesureValide, t, vib, moteurMarche);
+  if (strcmp(p.etat, etatPrecedent) != 0) {            // message seulement quand l'etat change
+    if (strcmp(p.etat, "ATTENTION") == 0) {
+      char msg[64];
+      snprintf(msg, sizeof(msg), "ATTENTION : %s", p.raison);
+      publier(T_ALERT, msg);
+      Serial.println(msg);
+    } else if (strcmp(etatPrecedent, "ATTENTION") == 0 && strcmp(p.etat, "NORMAL") == 0) {
+      publier(T_ALERT, "RETOUR A LA NORMALE");
+      Serial.println("RETOUR A LA NORMALE");
+    }
+    etatPrecedent = p.etat;
+  }
+
+  // 5) Publication : JSON 1 = mesures brutes, JSON 2 = prediction
+  long ts = horodatage();
   char tbuf[16];
-  if (mesureValide) snprintf(tbuf, sizeof(tbuf), "%.1f", t);
-  else strcpy(tbuf, "null");                 // JSON valide meme si la mesure est invalide
+  nombre(tbuf, sizeof(tbuf), mesureValide, t, 1);
   char json[200];
   snprintf(json, sizeof(json),
-           "{\"temperature\":%s,\"vibration\":%.2f,\"statut\":\"%s\"}",
-           tbuf, vib, moteurMarche ? "MARCHE" : "ARRET");
+           "{\"ts\":%ld,\"temperature\":%s,\"vibration\":%.2f,\"statut\":\"%s\"}",
+           ts, tbuf, vib, moteurMarche ? "MARCHE" : "ARRET");
   publier(T_MES, json);
 
-  // 5) Affichage local
+  char mbuf[16], pbuf[16], rbuf[16];
+  nombre(mbuf, sizeof(mbuf), p.moyenneOk, p.moyenne, 1);
+  nombre(pbuf, sizeof(pbuf), p.penteOk, p.pente, 2);
+  nombre(rbuf, sizeof(rbuf), p.restantOk, p.restant, 0);
+  char jsonPred[220];
+  snprintf(jsonPred, sizeof(jsonPred),
+           "{\"ts\":%ld,\"moyenne\":%s,\"pente\":%s,\"restant\":%s,\"etat\":\"%s\",\"raison\":\"%s\"}",
+           ts, mbuf, pbuf, rbuf, p.etat, p.raison);
+  publier(T_PRED, jsonPred);
+
+  // 6) Affichage local
   Serial.println(json);
+  Serial.println(jsonPred);
   Serial.print("MQTT : ");
   Serial.println(mqtt.connected() ? "connecte" : "hors ligne");
 }
