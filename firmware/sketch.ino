@@ -42,6 +42,7 @@ PubSubClient mqtt(clientTls);
 bool moteurMarche = true;
 bool arretDistant = false;
 bool ntpLance = false;
+char derniereCause[40] = "aucun";      // cause du dernier arret (republiee apres une coupure reseau)
 unsigned long derniereMesure = 0;
 unsigned long dernierEssaiMqtt = 0;
 const unsigned long PERIODE_MESURE = 2000;
@@ -200,6 +201,8 @@ void publier(const char* topic, const char* message, bool retenu = false) {
 // ---------- Actions sur le moteur ----------
 void couperMoteur(const char* cause) {
   moteurMarche = false;
+  strncpy(derniereCause, cause, sizeof(derniereCause) - 1);
+  derniereCause[sizeof(derniereCause) - 1] = '\0';
   digitalWrite(PIN_RELAIS, RELAIS_OFF);
   digitalWrite(PIN_LED_ROUGE, HIGH);
   tone(PIN_BUZZER, 1000, 500);
@@ -215,6 +218,7 @@ void couperMoteur(const char* cause) {
 
 void redemarrerMoteur() {
   moteurMarche = true;
+  strcpy(derniereCause, "aucun");
   digitalWrite(PIN_RELAIS, RELAIS_ON);
   digitalWrite(PIN_LED_ROUGE, LOW);
   Serial.println("MOTEUR REDEMARRE");
@@ -263,6 +267,7 @@ void gererReseau() {
     mqtt.subscribe(T_CMD, 1);
     publier(T_ETAT, "online", true);
     publier(T_STAT, moteurMarche ? "MARCHE" : "ARRET", true);
+    publier(T_DEF, moteurMarche ? "aucun" : derniereCause, true);   // republie aussi la cause
   } else {
     Serial.print("echec, code = ");
     Serial.println(mqtt.state());
