@@ -1,0 +1,31 @@
+2026-11-05T06:42:43.024Z;dashboard/liaison;EN ATTENTE
+2026-11-05T06:42:44.783Z;usine/ligne1/esp32/etat;offline
+2026-11-05T06:42:44.785Z;usine/ligne1/moteur/defaut;mesure invalide
+2026-11-05T06:42:44.786Z;usine/ligne1/moteur/statut;ARRET
+2026-11-05T06:42:53.517Z;dashboard/commande;OFF
+2026-11-05T06:42:56.106Z;dashboard/commande;ON
+2026-11-05T06:47:48.175Z;usine/ligne1/esp32/etat;offline
+2026-11-05T06:47:48.175Z;usine/ligne1/moteur/defaut;mesure invalide
+2026-11-05T06:47:48.176Z;usine/ligne1/moteur/statut;ARRET
+2026-11-05T06:47:48.750Z;dashboard/liaison;EN ATTENTE
+2026-11-05T06:48:06.776Z;dashboard/commande;OFF
+2026-11-05T06:48:11.316Z;dashboard/commande;ON
+2026-11-05T06:48:21.850Z;dashboard/commande;OFF
+2026-11-05T06:48:24.251Z;dashboard/commande;ON
+2026-11-05T06:52:45.946Z;usine/ligne1/esp32/etat;offline
+2026-11-05T06:52:45.947Z;usine/ligne1/moteur/defaut;mesure invalide
+2026-11-05T06:52:45.947Z;usine/ligne1/moteur/statut;ARRET
+2026-11-05T06:52:45.964Z;dashboard/liaison;EN ATTENTE
+2026-11-05T06:52:59.090Z;dashboard/commande;OFF
+2026-11-05T06:53:07.395Z;dashboard/commande;ON
+2026-11-05T07:01:16.987Z;usine/ligne1/esp32/etat;offline
+2026-11-05T07:01:16.987Z;usine/ligne1/moteur/defaut;mesure invalide
+2026-11-05T07:01:16.988Z;usine/ligne1/moteur/statut;ARRET
+2026-11-05T07:01:17.131Z;dashboard/liaison;EN ATTENTE
+2026-11-05T07:01:23.399Z;dashboard/commande;ON
+2026-11-05T07:01:25.630Z;dashboard/commande;OFF
+2026-11-05T07:01:29.338Z;dashboard/commande;ON
+2026-11-05T07:01:34.731Z;dashboard/commande;OFF
+2026-11-05T07:43:16.546Z;dashboard/commande;OFF
+2026-11-05T09:34:52.790Z;dashboard/commande;ON
+2026-11-05T09:34:54.717Z;dashboard/commande;OFF

@@ -1,0 +1,2155 @@
+[
+    {
+        "id": "1a6c67368c11a25e",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ea1ff61de61933f6",
+        "type": "group",
+        "z": "1a6c67368c11a25e",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#767676"
+        },
+        "nodes": [
+            "f011d45912e704c7"
+        ],
+        "x": 288,
+        "y": 193,
+        "w": 564,
+        "h": 535.7095336914062
+    },
+    {
+        "id": "f011d45912e704c7",
+        "type": "group",
+        "z": "1a6c67368c11a25e",
+        "g": "ea1ff61de61933f6",
+        "name": "Banc de test",
+        "style": {
+            "stroke": "#ff0000",
+            "label": true
+        },
+        "nodes": [
+            "bf2fdd5b327a044f",
+            "46243d14888ed8ba",
+            "f5b50a30eaf17317",
+            "568e7cd44b34e2a8",
+            "2b61b4d7f7a93f37",
+            "f3577f16f671c42c",
+            "43d794f525636d2a",
+            "83775ae159b733ce",
+            "75fa75a0c5668536",
+            "15dc94571e4d9efc",
+            "c9351dcacaf26bdb",
+            "c37374e1450d7ca6"
+        ],
+        "x": 314,
+        "y": 219,
+        "w": 512,
+        "h": 483.70953369140625
+    },
+    {
+        "id": "8d636dc5ddd7b581",
+        "type": "tls-config",
+        "name": "",
+        "certType": "files",
+        "cert": "",
+        "key": "",
+        "p12": "",
+        "p12name": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "emqxsl-ca.crt",
+        "servername": "",
+        "verifyservercert": true,
+        "alpnprotocol": "",
+        "certEnv": "",
+        "keyEnv": "",
+        "caEnv": ""
+    },
+    {
+        "id": "fe32454a808f75b4",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "vc6f0d00.ala.eu-central-1.emqxsl.com",
+        "port": "8883",
+        "tls": "8d636dc5ddd7b581",
+        "clientid": "nodered-1",
+        "autoConnect": true,
+        "usetls": true,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "d867902c9d2fd266",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "621c380439175861",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "0c9cd740aed6271b",
+        "type": "ui-page",
+        "name": "Moteur ligne1",
+        "ui": "d867902c9d2fd266",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "621c380439175861",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "tabs": [],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "f49485ac9817494b",
+        "type": "ui-group",
+        "name": "Mesures",
+        "page": "0c9cd740aed6271b",
+        "width": "8",
+        "height": 1,
+        "order": 7,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "tab": ""
+    },
+    {
+        "id": "39edffd89780b9bc",
+        "type": "ui-group",
+        "name": "Prédiction",
+        "page": "0c9cd740aed6271b",
+        "width": "4",
+        "height": 1,
+        "order": 8,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "tab": ""
+    },
+    {
+        "id": "e920479c57835a59",
+        "type": "ui-group",
+        "name": "État ESP32",
+        "page": "0c9cd740aed6271b",
+        "width": "3",
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "tab": ""
+    },
+    {
+        "id": "48e49724c48d35f3",
+        "type": "ui-group",
+        "name": "Statut moteur",
+        "page": "0c9cd740aed6271b",
+        "width": "3",
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "tab": ""
+    },
+    {
+        "id": "8e71f88eea8cd825",
+        "type": "ui-group",
+        "name": "Dernier défaut",
+        "page": "0c9cd740aed6271b",
+        "width": 6,
+        "height": 1,
+        "order": 5,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "tab": ""
+    },
+    {
+        "id": "5384b8d9ab7b83ee",
+        "type": "ui-group",
+        "name": "Dernière alerte",
+        "page": "0c9cd740aed6271b",
+        "width": 6,
+        "height": 1,
+        "order": 6,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "tab": ""
+    },
+    {
+        "id": "2aa5ee37ab3f26cd",
+        "type": "ui-group",
+        "name": "Liaison mesures",
+        "page": "0c9cd740aed6271b",
+        "width": "3",
+        "height": 1,
+        "order": 3,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "tab": ""
+    },
+    {
+        "id": "b2ba61efca9464c7",
+        "type": "ui-group",
+        "name": "Maintenance prédictive",
+        "page": "0c9cd740aed6271b",
+        "width": "3",
+        "height": 1,
+        "order": 4,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "tab": ""
+    },
+    {
+        "id": "b0e981f1832bb03a",
+        "type": "ui-spacer",
+        "group": "",
+        "name": "spacer",
+        "tooltip": "",
+        "order": 1,
+        "width": 1,
+        "height": 1,
+        "className": ""
+    },
+    {
+        "id": "5cb95bc6eb6888d1",
+        "type": "ui-group",
+        "name": "Boutons",
+        "page": "0c9cd740aed6271b",
+        "width": "8",
+        "height": 1,
+        "order": 9,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "tab": ""
+    },
+    {
+        "id": "eae261c039d162b9",
+        "type": "ui-group",
+        "name": "Journal des alertes et des actions ",
+        "page": "0c9cd740aed6271b",
+        "width": "12",
+        "height": 1,
+        "order": 10,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "tab": ""
+    },
+    {
+        "id": "f210d83c7d71e924",
+        "type": "mqtt in",
+        "z": "1a6c67368c11a25e",
+        "name": "",
+        "topic": "usine/ligne1/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "fe32454a808f75b4",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 80,
+        "wires": [
+            [
+                "4a23e85a74b7f658"
+            ]
+        ]
+    },
+    {
+        "id": "4a23e85a74b7f658",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "eb4a1130c68c7313",
+        "type": "mqtt in",
+        "z": "1a6c67368c11a25e",
+        "name": "",
+        "topic": "usine/ligne1/moteur/mesures",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "fe32454a808f75b4",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 320,
+        "y": 180,
+        "wires": [
+            [
+                "086a226b1e99b77d"
+            ]
+        ]
+    },
+    {
+        "id": "086a226b1e99b77d",
+        "type": "function",
+        "z": "1a6c67368c11a25e",
+        "name": "valider la mesure",
+        "func": "let p = msg.payload;\nif (typeof p === 'string') {\n  try { p = JSON.parse(p); } catch (e) { p = null; }\n  msg.payload = p;                       // les nœuds suivants reçoivent un objet\n}\nflow.set('lastSeen', Date.now());\nlet motif = null;\nif (typeof p !== 'object' || p === null) {\n  motif = 'JSON invalide';\n} else if (p.temperature === null || p.temperature === undefined) {\n  motif = 'capteur temperature deconnecte (null)';\n} else if (typeof p.temperature !== 'number' || p.temperature < -40 || p.temperature > 80) {\n  motif = 'temperature hors plage : ' + p.temperature;\n} else if (typeof p.vibration !== 'number' || p.vibration < 0 || p.vibration > 160) {\n  motif = 'vibration hors plage : ' + p.vibration;\n}\nif (motif) {\n  return [null, {topic: 'dashboard/validation', payload: 'DONNEE REJETEE : ' + motif}];\n}\nreturn [msg, null];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 180,
+        "wires": [
+            [
+                "5ad95ce05678951e",
+                "d84f2192de66a5da",
+                "846084606ad393b8",
+                "a86547c468f6072a",
+                "f648d82eafc394f0"
+            ],
+            [
+                "42c962148a691632",
+                "87e2e7bd8bb1693b"
+            ]
+        ]
+    },
+    {
+        "id": "5ad95ce05678951e",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "valide",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "42c962148a691632",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "rejeter",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "bf2fdd5b327a044f",
+        "type": "inject",
+        "z": "1a6c67368c11a25e",
+        "d": true,
+        "g": "f011d45912e704c7",
+        "name": "normale",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\":45.2,\"vibration\":0.8,\"statut\":\"MARCHE\"}",
+        "payloadType": "json",
+        "x": 420,
+        "y": 260,
+        "wires": [
+            [
+                "086a226b1e99b77d"
+            ]
+        ]
+    },
+    {
+        "id": "f5b50a30eaf17317",
+        "type": "inject",
+        "z": "1a6c67368c11a25e",
+        "d": true,
+        "g": "f011d45912e704c7",
+        "name": "Trop chaud",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\":120,\"vibration\":0.8,\"statut\":\"MARCHE\"}",
+        "payloadType": "json",
+        "x": 420,
+        "y": 380,
+        "wires": [
+            [
+                "086a226b1e99b77d"
+            ]
+        ]
+    },
+    {
+        "id": "568e7cd44b34e2a8",
+        "type": "inject",
+        "z": "1a6c67368c11a25e",
+        "d": true,
+        "g": "f011d45912e704c7",
+        "name": "Vibration négative",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\":45.2,\"vibration\":-1,\"statut\":\"MARCHE\"}",
+        "payloadType": "json",
+        "x": 450,
+        "y": 440,
+        "wires": [
+            [
+                "086a226b1e99b77d"
+            ]
+        ]
+    },
+    {
+        "id": "46243d14888ed8ba",
+        "type": "inject",
+        "z": "1a6c67368c11a25e",
+        "d": true,
+        "g": "f011d45912e704c7",
+        "name": "capteur déconnecté",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\":null,\"vibration\":0.8,\"statut\":\"MARCHE\"}",
+        "payloadType": "json",
+        "x": 450,
+        "y": 320,
+        "wires": [
+            [
+                "086a226b1e99b77d"
+            ]
+        ]
+    },
+    {
+        "id": "d84f2192de66a5da",
+        "type": "change",
+        "z": "1a6c67368c11a25e",
+        "name": "Extraire température ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.temperature",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 100,
+        "wires": [
+            [
+                "ff4e46f3fe3e894a",
+                "1641b48e0a1a5375",
+                "3a5e4f5c96493e9c"
+            ]
+        ]
+    },
+    {
+        "id": "ff4e46f3fe3e894a",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "1641b48e0a1a5375",
+        "type": "ui-gauge",
+        "z": "1a6c67368c11a25e",
+        "name": "Température",
+        "group": "f49485ac9817494b",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Température moteur",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "",
+        "icon": "",
+        "prefix": "",
+        "suffix": "°C",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "60",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "75",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "100",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1070,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2b61b4d7f7a93f37",
+        "type": "inject",
+        "z": "1a6c67368c11a25e",
+        "d": true,
+        "g": "f011d45912e704c7",
+        "name": "orange",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\":68,\"vibration\":0.8,\"statut\":\"MARCHE\"}",
+        "payloadType": "json",
+        "x": 670,
+        "y": 340,
+        "wires": [
+            [
+                "086a226b1e99b77d"
+            ]
+        ]
+    },
+    {
+        "id": "f3577f16f671c42c",
+        "type": "inject",
+        "z": "1a6c67368c11a25e",
+        "d": true,
+        "g": "f011d45912e704c7",
+        "name": "rouge",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\":77,\"vibration\":0.8,\"statut\":\"MARCHE\"}",
+        "payloadType": "json",
+        "x": 670,
+        "y": 400,
+        "wires": [
+            [
+                "086a226b1e99b77d"
+            ]
+        ]
+    },
+    {
+        "id": "846084606ad393b8",
+        "type": "change",
+        "z": "1a6c67368c11a25e",
+        "name": "Extraire vibration ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.vibration",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 20,
+        "wires": [
+            [
+                "7ad83ca5105d5dc5",
+                "e6be1ad932245f8b",
+                "6175a86188c72d05"
+            ]
+        ]
+    },
+    {
+        "id": "7ad83ca5105d5dc5",
+        "type": "ui-gauge",
+        "z": "1a6c67368c11a25e",
+        "name": "vibration",
+        "group": "f49485ac9817494b",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "3",
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "vibration moteur",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "",
+        "icon": "",
+        "prefix": "",
+        "suffix": "m/s²",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "2",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "3",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "5",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 1060,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e6be1ad932245f8b",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "43d794f525636d2a",
+        "type": "inject",
+        "z": "1a6c67368c11a25e",
+        "d": true,
+        "g": "f011d45912e704c7",
+        "name": "orange_vibration",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\":45.2,\"vibration\":2.5,\"statut\":\"MARCHE\"}",
+        "payloadType": "json",
+        "x": 700,
+        "y": 500,
+        "wires": [
+            [
+                "086a226b1e99b77d"
+            ]
+        ]
+    },
+    {
+        "id": "83775ae159b733ce",
+        "type": "inject",
+        "z": "1a6c67368c11a25e",
+        "d": true,
+        "g": "f011d45912e704c7",
+        "name": "rouge_vibration",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\":45.2,\"vibration\":3.5,\"statut\":\"MARCHE\"}",
+        "payloadType": "json",
+        "x": 700,
+        "y": 560,
+        "wires": [
+            [
+                "086a226b1e99b77d"
+            ]
+        ]
+    },
+    {
+        "id": "17c45c24c79590f3",
+        "type": "ui-chart",
+        "z": "1a6c67368c11a25e",
+        "group": "f49485ac9817494b",
+        "name": "Historique température",
+        "label": "Température (°C)",
+        "order": 3,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "30 minutes",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "0",
+        "ymax": "100",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": "30",
+        "removeOlderUnit": "60",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": "6",
+        "height": "4",
+        "className": "",
+        "interpolation": "linear",
+        "x": 1520,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6175a86188c72d05",
+        "type": "ui-chart",
+        "z": "1a6c67368c11a25e",
+        "group": "f49485ac9817494b",
+        "name": "Historique vibration",
+        "label": "Vibration (m/s²)",
+        "order": 4,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "dernières 10 minutes",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "0",
+        "ymax": "5",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": "6",
+        "height": "4",
+        "className": "",
+        "interpolation": "linear",
+        "x": 1090,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "41e708cf9fe5b531",
+        "type": "mqtt in",
+        "z": "1a6c67368c11a25e",
+        "name": "Statut moteur",
+        "topic": "usine/ligne1/moteur/statut",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "fe32454a808f75b4",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 560,
+        "wires": [
+            [
+                "415dd242e7ed0213",
+                "c9351dcacaf26bdb",
+                "c8527b3e14f1b7d6"
+            ]
+        ]
+    },
+    {
+        "id": "415dd242e7ed0213",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "75fa75a0c5668536",
+        "type": "inject",
+        "z": "1a6c67368c11a25e",
+        "d": true,
+        "g": "f011d45912e704c7",
+        "name": "Statut arret",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ARRET",
+        "payloadType": "str",
+        "x": 480,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "15dc94571e4d9efc",
+        "type": "inject",
+        "z": "1a6c67368c11a25e",
+        "d": true,
+        "g": "f011d45912e704c7",
+        "name": "Statut marche",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Marche",
+        "payloadType": "str",
+        "x": 480.16693115234375,
+        "y": 661.7095336914062,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a12f7ed8a9a9e80a",
+        "type": "mqtt in",
+        "z": "1a6c67368c11a25e",
+        "name": "Etat ESP32",
+        "topic": "usine/ligne1/esp32/etat",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "fe32454a808f75b4",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 740,
+        "wires": [
+            [
+                "f997f9db28fbb402",
+                "c37374e1450d7ca6"
+            ]
+        ]
+    },
+    {
+        "id": "d77f4bb66729b998",
+        "type": "mqtt in",
+        "z": "1a6c67368c11a25e",
+        "name": "Dérnier défaut",
+        "topic": "usine/ligne1/moteur/defaut",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "fe32454a808f75b4",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 840,
+        "wires": [
+            [
+                "b0335678487cc840",
+                "aa7ba94c55a35bd6"
+            ]
+        ]
+    },
+    {
+        "id": "b0335678487cc840",
+        "type": "ui-text",
+        "z": "1a6c67368c11a25e",
+        "group": "8e71f88eea8cd825",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 450,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "dfadaaa82e030964",
+        "type": "mqtt in",
+        "z": "1a6c67368c11a25e",
+        "name": "Alertes",
+        "topic": "usine/ligne1/alertes",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "fe32454a808f75b4",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 940,
+        "wires": [
+            [
+                "46f43f76b0d13c38",
+                "87e2e7bd8bb1693b"
+            ]
+        ]
+    },
+    {
+        "id": "46f43f76b0d13c38",
+        "type": "ui-text",
+        "z": "1a6c67368c11a25e",
+        "group": "5384b8d9ab7b83ee",
+        "order": 1,
+        "width": "6",
+        "height": "1",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 450,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "c2c7f62b711177ca",
+        "type": "ui-button",
+        "z": "1a6c67368c11a25e",
+        "group": "5cb95bc6eb6888d1",
+        "name": "Bouton OFF",
+        "label": "Arreter le moteur (OFF)",
+        "order": 1,
+        "width": "4",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "OFF",
+        "payloadType": "str",
+        "topic": "dashboard/commande",
+        "topicType": "str",
+        "buttonColor": "#c62828",
+        "textColor": "#ffffff",
+        "iconColor": "stop-circle",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 910,
+        "y": 820,
+        "wires": [
+            [
+                "689cba3998898c58",
+                "9a54419fcdade1f2",
+                "87e2e7bd8bb1693b",
+                "e7665acaf2e18949"
+            ]
+        ]
+    },
+    {
+        "id": "1e861a4cdcc20132",
+        "type": "ui-button",
+        "z": "1a6c67368c11a25e",
+        "group": "5cb95bc6eb6888d1",
+        "name": "Bouton ON",
+        "label": "Autoriser le démarrage (ON)",
+        "order": 2,
+        "width": "4",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "ON",
+        "payloadType": "str",
+        "topic": "dashboard/commande",
+        "topicType": "str",
+        "buttonColor": "#1b8a4b",
+        "textColor": "#ffffff",
+        "iconColor": "play-circle",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 910,
+        "y": 880,
+        "wires": [
+            [
+                "689cba3998898c58",
+                "9a54419fcdade1f2",
+                "87e2e7bd8bb1693b",
+                "d85cfadec6248cee"
+            ]
+        ]
+    },
+    {
+        "id": "689cba3998898c58",
+        "type": "mqtt out",
+        "z": "1a6c67368c11a25e",
+        "name": "Commande relais",
+        "topic": "usine/ligne1/moteur/cmd/relais",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "fe32454a808f75b4",
+        "x": 1330,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "9a54419fcdade1f2",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "Test commande",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1320,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "a86547c468f6072a",
+        "type": "function",
+        "z": "1a6c67368c11a25e",
+        "d": true,
+        "name": "régle de décision",
+        "func": "// Règle de décision : moyenne mobile sur N mesures valides\nconst N = 3;\nconst m = msg.payload;   // objet {temperature, vibration, statut}\n\n// 1. Mémoriser les N dernières valeurs\nlet bt = flow.get('bufT') || [];\nlet bv = flow.get('bufV') || [];\nbt.push(m.temperature);\nbv.push(m.vibration);\nif (bt.length > N) bt.shift();\nif (bv.length > N) bv.shift();\nflow.set('bufT', bt);\nflow.set('bufV', bv);\n\n// 2. Moyennes\nconst moy = a => a.reduce((s, x) => s + x, 0) / a.length;\nconst T = moy(bt);\nconst V = moy(bv);\n\n// 3. Niveau brut selon les seuils\nconst rang = { NORMAL: 0, PREALERTE: 1, CRITIQUE: 2 };\nconst ancien = flow.get('niveau') || 'NORMAL';\n\nlet brut = 'NORMAL';\nif (T >= 70 || V >= 2.6) brut = 'CRITIQUE';\nelse if (T >= 65 || V >= 2.0) brut = 'PREALERTE';\n\n// 4. Hystérésis : on ne redescend que sous 60 °C et 2,0 m/s²\nlet nouveau = brut;\nif (rang[brut] < rang[ancien]) {\n    nouveau = (T < 60 && V < 2.0) ? 'NORMAL' : ancien;\n}\nflow.set('niveau', nouveau);\n\nconst detail = 'T moy=' + T.toFixed(1) + ' C, V moy=' + V.toFixed(2) + ' m/s2';\n\n// Sortie 1 : niveau courant (affichage)\nconst sortie1 = { payload: nouveau };\n\n// Sortie 2 : événement, seulement quand le niveau change\nconst sortie2 = (nouveau !== ancien)\n    ? { topic: 'decision', payload: nouveau + ' : ' + detail }\n    : null;\n\n// Sortie 3 : commande OFF, seulement à l'entrée en CRITIQUE\nconst sortie3 = (nouveau === 'CRITIQUE' && ancien !== 'CRITIQUE')\n    ? { payload: 'OFF' }\n    : null;\n\nreturn [sortie1, sortie2, sortie3];",
+        "outputs": 3,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 320,
+        "wires": [
+            [
+                "689cba3998898c58"
+            ],
+            [
+                "270555607caa0a64"
+            ],
+            [
+                "36ad0875add73997",
+                "a8c8d0908d04a750"
+            ]
+        ]
+    },
+    {
+        "id": "270555607caa0a64",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "evenement",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1190,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "36ad0875add73997",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "OFF automatique",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1210,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "18ee7e33a3485444",
+        "type": "inject",
+        "z": "1a6c67368c11a25e",
+        "name": "Tic 10s",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 920,
+        "y": 600,
+        "wires": [
+            [
+                "d64856d7e2a13dc4"
+            ]
+        ]
+    },
+    {
+        "id": "d64856d7e2a13dc4",
+        "type": "function",
+        "z": "1a6c67368c11a25e",
+        "name": "Surveiller l'absence",
+        "func": "// Surveillance : plus de mesures depuis plus de 40 s ?\nconst SEUIL_MS = 40000;\nconst last = flow.get('lastSeen');\nconst etatAvant = flow.get('etatLiaison') || 'INCONNU';\n\nlet etat;\nlet detail;\nif (!last) {\n    etat = 'EN ATTENTE';\n    detail = 'aucune mesure recue depuis le demarrage';\n} else {\n    const age = Math.round((Date.now() - last) / 1000);\n    if (age > SEUIL_MS / 1000) {\n        etat = 'PERDUE';\n        detail = 'aucune mesure depuis ' + age + ' s';\n    } else {\n        etat = 'OK';\n        detail = 'derniere mesure il y a ' + age + ' s';\n    }\n}\nflow.set('etatLiaison', etat);\n\nmsg.payload = etat;\nmsg.detail = detail;\nmsg.changement = (etat !== etatAvant);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1170,
+        "y": 600,
+        "wires": [
+            [
+                "a2d5409b93a261ce",
+                "0de81f570ce23640",
+                "1682992c753e8bf6"
+            ]
+        ]
+    },
+    {
+        "id": "a2d5409b93a261ce",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "Surveillance",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1410,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "87e2e7bd8bb1693b",
+        "type": "function",
+        "z": "1a6c67368c11a25e",
+        "name": "Journal",
+        "func": "node.warn('Journal recoit : ' + msg.topic + ' | ' + msg._msgid);\nconst txt = (typeof msg.payload === 'object')\n    ? JSON.stringify(msg.payload)\n    : String(msg.payload);\nconst source = msg.topic || 'inconnu';\nmsg.payload = new Date().toISOString() + ';' + source + ';' +\n    txt.replace(/[;\\r\\n]+/g, ' ') + '\\n';\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1800,
+        "y": 440,
+        "wires": [
+            [
+                "622df17856f0afef",
+                "287cfba461a0e46d"
+            ]
+        ]
+    },
+    {
+        "id": "622df17856f0afef",
+        "type": "file",
+        "z": "1a6c67368c11a25e",
+        "name": "journal.csv",
+        "filename": "C:/Users/SARA/iiot-data/journal.csv",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1970,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0de81f570ce23640",
+        "type": "rbe",
+        "z": "1a6c67368c11a25e",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1430,
+        "y": 540,
+        "wires": [
+            [
+                "9b4ea7428be9a74e"
+            ]
+        ]
+    },
+    {
+        "id": "a8c8d0908d04a750",
+        "type": "change",
+        "z": "1a6c67368c11a25e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "dashboard/commande-auto",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1350,
+        "y": 460,
+        "wires": [
+            [
+                "87e2e7bd8bb1693b"
+            ]
+        ]
+    },
+    {
+        "id": "9b4ea7428be9a74e",
+        "type": "change",
+        "z": "1a6c67368c11a25e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "dashboard/liaison",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1610,
+        "y": 500,
+        "wires": [
+            [
+                "87e2e7bd8bb1693b"
+            ]
+        ]
+    },
+    {
+        "id": "f648d82eafc394f0",
+        "type": "function",
+        "z": "1a6c67368c11a25e",
+        "name": "Ligne mesure",
+        "func": "const p = msg.payload;\nconst ts = (p.ts > 0) ? p.ts : Math.floor(Date.now() / 1000);\nmsg.payload = ts + ',' + p.temperature + ',' + p.vibration + ',' + p.statut + '\\n';\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1360,
+        "y": 160,
+        "wires": [
+            [
+                "d607579fd38c556f"
+            ]
+        ]
+    },
+    {
+        "id": "d607579fd38c556f",
+        "type": "file",
+        "z": "1a6c67368c11a25e",
+        "name": "mesures.csv",
+        "filename": "C:/Users/SARA/iiot-data/mesures.csv",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1590,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6026b8457922024b",
+        "type": "mqtt in",
+        "z": "1a6c67368c11a25e",
+        "name": "",
+        "topic": "usine/ligne1/moteur/prediction",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "fe32454a808f75b4",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 320,
+        "y": 1040,
+        "wires": [
+            [
+                "14928d5f08aafe13",
+                "0de1f101049da63b",
+                "72eab5d9b047bc07"
+            ]
+        ]
+    },
+    {
+        "id": "14928d5f08aafe13",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "Prédictions",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "0de1f101049da63b",
+        "type": "function",
+        "z": "1a6c67368c11a25e",
+        "name": "Règle prédictive (OFF auto)",
+        "func": "const p = msg.payload;\nconst dejaEnvoye = flow.get(\"offAuto\") || false;\n\nif (p.moyenne !== null && p.moyenne >= 72 && p.etat === \"ATTENTION\" && !dejaEnvoye) {\n    flow.set(\"offAuto\", true);\n    return [\n        { payload: \"OFF\" },\n        {\n            topic: \"decision/prediction\",\n            payload: \"ARRET PREVENTIF AUTOMATIQUE : moyenne \" + p.moyenne + \" C\"\n        }\n    ];\n}\nif (p.moyenne !== null && p.moyenne < 65) flow.set(\"offAuto\", false);\nreturn [null, null];",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 1040,
+        "wires": [
+            [
+                "689cba3998898c58"
+            ],
+            [
+                "87e2e7bd8bb1693b"
+            ]
+        ]
+    },
+    {
+        "id": "72eab5d9b047bc07",
+        "type": "function",
+        "z": "1a6c67368c11a25e",
+        "name": "Découper prédiction",
+        "func": "const p = msg.payload;\nconst nb = v => (typeof v === 'number') ? v.toFixed(1) : '—';\nlet restant = '—';\nif (typeof p.restant === 'number') {\n    restant = Math.floor(p.restant / 60) + ' min ' + Math.round(p.restant % 60) + ' s';\n}\n// Sortie 6 : deux courbes pour le meme graphique (tableau = deux messages)\nlet courbes = [];\nif (typeof p.moyenne === 'number')\n    courbes.push({ topic: 'Moyenne (°C)', payload: p.moyenne });\nif (typeof p.pente === 'number') {\n    const pente = Math.max(-10, Math.min(10, p.pente));  // limite aux valeurs plausibles\n    courbes.push({ topic: 'Pente (x3, base 40)', payload: 40 + pente * 3 });\n}\nreturn [\n    { payload: p.etat || '—' },\n    { payload: p.raison || '—' },\n    { payload: nb(p.moyenne) },\n    { payload: nb(p.pente) },\n    { payload: restant },\n    courbes.length ? [courbes] : null\n];",
+        "outputs": 6,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 1140,
+        "wires": [
+            [
+                "1465c123277e8e4d",
+                "580a0acabf5db7db"
+            ],
+            [
+                "72d692fd3b03ef5c"
+            ],
+            [
+                "105a09b7da4d46a9"
+            ],
+            [
+                "d5e77abfa56989b3"
+            ],
+            [
+                "e6ecfa1a5d20d52a"
+            ],
+            [
+                "17c45c24c79590f3"
+            ]
+        ]
+    },
+    {
+        "id": "72d692fd3b03ef5c",
+        "type": "ui-text",
+        "z": "1a6c67368c11a25e",
+        "group": "39edffd89780b9bc",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "name": "Raison",
+        "label": "Raison",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1200,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "105a09b7da4d46a9",
+        "type": "ui-text",
+        "z": "1a6c67368c11a25e",
+        "group": "39edffd89780b9bc",
+        "order": 4,
+        "width": "3",
+        "height": "1",
+        "name": "Moyenne (°C)",
+        "label": "Moyenne (°C)",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1214.98876953125,
+        "y": 1104.949462890625,
+        "wires": []
+    },
+    {
+        "id": "d5e77abfa56989b3",
+        "type": "ui-text",
+        "z": "1a6c67368c11a25e",
+        "group": "39edffd89780b9bc",
+        "order": 3,
+        "width": "3",
+        "height": "1",
+        "name": "pente (°C/min)",
+        "label": "pente (°C/min)",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1220,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "e6ecfa1a5d20d52a",
+        "type": "ui-text",
+        "z": "1a6c67368c11a25e",
+        "group": "39edffd89780b9bc",
+        "order": 2,
+        "width": "3",
+        "height": "1",
+        "name": "temps restant",
+        "label": "temps restant",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1220,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "1465c123277e8e4d",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "Prédictions",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1470,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "e7665acaf2e18949",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "OFF",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1586.3756103515625,
+        "y": 809.5042114257812,
+        "wires": []
+    },
+    {
+        "id": "d85cfadec6248cee",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "ON",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1590,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "3a5e4f5c96493e9c",
+        "type": "change",
+        "z": "1a6c67368c11a25e",
+        "name": "Série température",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Température (°C)",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1310,
+        "y": 240,
+        "wires": [
+            [
+                "17c45c24c79590f3"
+            ]
+        ]
+    },
+    {
+        "id": "f997f9db28fbb402",
+        "type": "ui-template",
+        "z": "1a6c67368c11a25e",
+        "group": "e920479c57835a59",
+        "page": "",
+        "ui": "",
+        "name": "Couleur état ESP32",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "head": "",
+        "format": "<template>\n    <span class=\"badge\" :class=\"cls\">{{ valeur }}</span>\n</template>\n\n<script>\n    export default {\n  computed: {\n    valeur() {\n      return (this.msg && this.msg.payload !== undefined) ? String(this.msg.payload) : '—';\n    },\n    cls() {\n      const v = this.valeur.toUpperCase();\n      if (['ONLINE', 'MARCHE', 'OK', 'NORMAL'].includes(v)) return 'ok';\n      if (['ATTENTION', 'EN ATTENTE'].includes(v)) return 'warn';\n      if (['OFFLINE', 'ARRET', 'PERDUE'].includes(v)) return 'bad';\n      return 'neutre';\n    }\n  }\n}\n</script>\n\n<style>\n    .badge {\n        display: inline-block;\n        padding: 8px 18px;\n        border-radius: 10px;\n        font-weight: 700;\n        font-size: 1.2rem;\n    }\n\n    .badge.ok {\n        background: #e1f4e8;\n        color: #146c3a;\n    }\n\n    .badge.warn {\n        background: #fdebd0;\n        color: #8a4b00;\n    }\n\n    .badge.bad {\n        background: #fadbd8;\n        color: #a32620;\n    }\n\n    .badge.neutre {\n        background: #eceff1;\n        color: #455a64;\n    }\n</style>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 540,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c9351dcacaf26bdb",
+        "type": "ui-template",
+        "z": "1a6c67368c11a25e",
+        "g": "f011d45912e704c7",
+        "group": "48e49724c48d35f3",
+        "page": "",
+        "ui": "",
+        "name": "Couleur statut moteur",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "head": "",
+        "format": "<template>\n    <span class=\"badge\" :class=\"cls\">{{ valeur }}</span>\n</template>\n\n<script>\n    export default {\n  computed: {\n    valeur() {\n      return (this.msg && this.msg.payload !== undefined) ? String(this.msg.payload) : '—';\n    },\n    cls() {\n      const v = this.valeur.toUpperCase();\n      if (['ONLINE', 'MARCHE', 'OK', 'NORMAL'].includes(v)) return 'ok';\n      if (['ATTENTION', 'EN ATTENTE'].includes(v)) return 'warn';\n      if (['OFFLINE', 'ARRET', 'PERDUE'].includes(v)) return 'bad';\n      return 'neutre';\n    }\n  }\n}\n</script>\n\n<style>\n    .badge {\n        display: inline-block;\n        padding: 8px 18px;\n        border-radius: 10px;\n        font-weight: 700;\n        font-size: 1.2rem;\n    }\n\n    .badge.ok {\n        background: #e1f4e8;\n        color: #146c3a;\n    }\n\n    .badge.warn {\n        background: #fdebd0;\n        color: #8a4b00;\n    }\n\n    .badge.bad {\n        background: #fadbd8;\n        color: #a32620;\n    }\n\n    .badge.neutre {\n        background: #eceff1;\n        color: #455a64;\n    }\n</style>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 520,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1682992c753e8bf6",
+        "type": "ui-template",
+        "z": "1a6c67368c11a25e",
+        "group": "2aa5ee37ab3f26cd",
+        "page": "",
+        "ui": "",
+        "name": "Couleur liaison",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "head": "",
+        "format": "<template>\n    <span class=\"badge\" :class=\"cls\">{{ valeur }}</span>\n</template>\n\n<script>\n    export default {\n  computed: {\n    valeur() {\n      return (this.msg && this.msg.payload !== undefined) ? String(this.msg.payload) : '—';\n    },\n    cls() {\n      const v = this.valeur.toUpperCase();\n      if (['ONLINE', 'MARCHE', 'OK', 'NORMAL'].includes(v)) return 'ok';\n      if (['ATTENTION', 'EN ATTENTE'].includes(v)) return 'warn';\n      if (['OFFLINE', 'ARRET', 'PERDUE'].includes(v)) return 'bad';\n      return 'neutre';\n    }\n  }\n}\n</script>\n\n<style>\n    .badge {\n        display: inline-block;\n        padding: 8px 18px;\n        border-radius: 10px;\n        font-weight: 700;\n        font-size: 1.2rem;\n    }\n\n    .badge.ok {\n        background: #e1f4e8;\n        color: #146c3a;\n    }\n\n    .badge.warn {\n        background: #fdebd0;\n        color: #8a4b00;\n    }\n\n    .badge.bad {\n        background: #fadbd8;\n        color: #a32620;\n    }\n\n    .badge.neutre {\n        background: #eceff1;\n        color: #455a64;\n    }\n</style>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1420,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "580a0acabf5db7db",
+        "type": "ui-template",
+        "z": "1a6c67368c11a25e",
+        "group": "b2ba61efca9464c7",
+        "page": "",
+        "ui": "",
+        "name": "Couleur prédiction",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "head": "",
+        "format": "<template>\n    <span class=\"badge\" :class=\"cls\">{{ valeur }}</span>\n</template>\n\n<script>\n    export default {\n  computed: {\n    valeur() {\n      return (this.msg && this.msg.payload !== undefined) ? String(this.msg.payload) : '—';\n    },\n    cls() {\n      const v = this.valeur.toUpperCase();\n      if (['ONLINE', 'MARCHE', 'OK', 'NORMAL'].includes(v)) return 'ok';\n      if (['ATTENTION', 'EN ATTENTE'].includes(v)) return 'warn';\n      if (['OFFLINE', 'ARRET', 'PERDUE'].includes(v)) return 'bad';\n      return 'neutre';\n    }\n  }\n}\n</script>\n\n<style>\n    .badge {\n        display: inline-block;\n        padding: 8px 18px;\n        border-radius: 10px;\n        font-weight: 700;\n        font-size: 1.2rem;\n    }\n\n    .badge.ok {\n        background: #e1f4e8;\n        color: #146c3a;\n    }\n\n    .badge.warn {\n        background: #fdebd0;\n        color: #8a4b00;\n    }\n\n    .badge.bad {\n        background: #fadbd8;\n        color: #a32620;\n    }\n\n    .badge.neutre {\n        background: #eceff1;\n        color: #455a64;\n    }\n</style>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1230,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "287cfba461a0e46d",
+        "type": "function",
+        "z": "1a6c67368c11a25e",
+        "name": "Préparer tableau",
+        "func": "const nomType = {\n    'dashboard/commande': 'ACTION',\n    'decision/prediction': 'ACTION',\n    'dashboard/liaison': 'LIAISON',\n    'usine/ligne1/esp32/etat': 'LIAISON',\n    'dashboard/validation': 'REJET',\n    'usine/ligne1/moteur/statut': 'ÉTAT',\n    'usine/ligne1/moteur/defaut': 'DÉFAUT'\n};\n\nconst ligne = String(msg.payload).replace(/\\n/g, '');\n// ANTI-DOUBLON SUR LA LIGNE COMPLETE : l'horodatage à la milliseconde rend chaque événement unique\nconst vues = flow.get('lignesVues') || [];\nif (vues.includes(ligne)) return null;\nvues.push(ligne);\nflow.set('lignesVues', vues.slice(-50));\nconst parts = ligne.split(';');\nconst topic = parts[1] || '';\nconst message = parts.slice(2).join(' ');\n\n// ignorer le défaut \"aucun\" (retained)\nif (topic === 'usine/ligne1/moteur/defaut' && message.trim() === 'aucun') return null;\n\nlet type = nomType[topic] || topic;\nif (topic === 'usine/ligne1/alertes') {\n    type = message.startsWith('MOTEUR COUPE') ? 'DÉFAUT' : 'ALERTE';\n}\nif (message.includes('ordre distant')) type = 'ACTION';\n\n// ANTI-DOUBLON : même source ET même message que la dernière valeur connue\nconst cle = topic + '|' + message;\nconst dernieres = flow.get('dernieresValeurs') || {};\nconst estEtat = ['usine/ligne1/moteur/statut',\n                 'usine/ligne1/esp32/etat',\n                 'usine/ligne1/moteur/defaut',\n                 'dashboard/liaison'].includes(topic);\nif (estEtat) {\n    if (dernieres[topic] === message) return null;   // pas un vrai changement\n    dernieres[topic] = message;\n    flow.set('dernieresValeurs', dernieres);\n}\n\nconst d = new Date(parts[0]);\nconst horo = isNaN(d) ? parts[0] : d.toLocaleString('fr-FR');\n\nlet liste = flow.get('journalAffiche') || [];\nliste.unshift({ horodatage: horo, source: type, message: message });\nif (liste.length > 20) liste = liste.slice(0, 20);\nflow.set('journalAffiche', liste);\n\nmsg.payload = liste;\nreturn [[ { payload: [] }, msg ]];    // d'abord une liste vide qui efface le tableau, puis la liste complète",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1990,
+        "y": 540,
+        "wires": [
+            [
+                "50ce550ed8db0763",
+                "d3ca3bd9d54f09bc"
+            ]
+        ]
+    },
+    {
+        "id": "50ce550ed8db0763",
+        "type": "ui-table",
+        "z": "1a6c67368c11a25e",
+        "group": "eae261c039d162b9",
+        "name": "Journal affiché",
+        "label": "",
+        "order": 1,
+        "width": "12",
+        "height": "6",
+        "maxrows": 0,
+        "passthru": false,
+        "autocols": true,
+        "showSearch": true,
+        "deselect": true,
+        "selectionType": "none",
+        "columns": [],
+        "mobileBreakpoint": "sm",
+        "mobileBreakpointType": "defaults",
+        "action": "append",
+        "className": "",
+        "x": 2240,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c8527b3e14f1b7d6",
+        "type": "rbe",
+        "z": "1a6c67368c11a25e",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 990,
+        "y": 500,
+        "wires": [
+            [
+                "87e2e7bd8bb1693b"
+            ]
+        ]
+    },
+    {
+        "id": "c37374e1450d7ca6",
+        "type": "rbe",
+        "z": "1a6c67368c11a25e",
+        "g": "f011d45912e704c7",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 750,
+        "y": 660,
+        "wires": [
+            [
+                "87e2e7bd8bb1693b"
+            ]
+        ]
+    },
+    {
+        "id": "aa7ba94c55a35bd6",
+        "type": "rbe",
+        "z": "1a6c67368c11a25e",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 650,
+        "y": 760,
+        "wires": [
+            [
+                "87e2e7bd8bb1693b"
+            ]
+        ]
+    },
+    {
+        "id": "d3ca3bd9d54f09bc",
+        "type": "debug",
+        "z": "1a6c67368c11a25e",
+        "name": "testte tableau",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2240,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "b314a530007284e5",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.33.0"
+        }
+    }
+]
