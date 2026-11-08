@@ -16,7 +16,9 @@ const int PIN_BUZZER = 14;
 // ---------- Seuils de protection (priorite absolue) ----------
 const float TEMP_COUPURE = 75.0;
 const float TEMP_REDEMARRE = 60.0;
-const float VIB_COUPURE = 3.0;
+const float VIB_COUPURE = 3.0;          // coupure si vibration >= 3,0 m/s2
+const float VIB_REDEMARRE = 2.5;        // redemarrage seulement sous 2,5 m/s2 (hysteresis)
+const float VIB_ATTENTION = 2.0;        // avertissement entre 2,0 et 3,0 m/s2 (zone orange du dashboard)
 
 // ---------- Logique du relais ----------
 const int RELAIS_ON = HIGH;
@@ -42,7 +44,7 @@ PubSubClient mqtt(clientTls);
 bool moteurMarche = true;
 bool arretDistant = false;
 bool ntpLance = false;
-char derniereCause[40] = "aucun";      // cause du dernier arret (republiee apres une coupure reseau)
+char derniereCause[40] = "aucun";      // cause du dernier arret (pour la republier apres une coupure reseau)
 unsigned long derniereMesure = 0;
 unsigned long dernierEssaiMqtt = 0;
 const unsigned long PERIODE_MESURE = 2000;
@@ -60,17 +62,12 @@ const float T_PENTE_MINI = 45.0;        // la pente n'alerte qu'au-dessus de 45 
 const float PENTE_ATTENTION = 5.0;      // montee rapide : 5 C par minute ou plus
 const float PENTE_MIN_RESTANT = 0.3;    // sous 0,3 C/min on ne calcule pas de temps restant
 const float RESTANT_ATTENTION = 120.0;  // avertissement si coupure estimee dans moins de 120 s
-const float ALPHA_BASE = 0.02;          // vitesse d'apprentissage du comportement normal
-const float K_SIGMA = 4.0;              // seuil adaptatif : moyenne + 4 ecarts-types
-const float SIGMA_MIN = 0.05;           // ecart-type minimal (evite un seuil trop serre)
-const int   N_MIN_BASE = 15;            // mesures necessaires avant de juger la vibration
 
 float fenT[N_FEN];                      // fenetre circulaire des temperatures filtrees
 int   fenIdx = 0, fenNb = 0;
 float brut[3];                          // les 3 dernieres temperatures brutes
 int   brutNb = 0;
-float baseMu = 0, baseVar = 0.0025;
-int   vibNb = 0, vibConsec = 0;
+int   vibConsec = 0;                    // mesures de suite dans la zone orange (2,0 a 3,0)
 bool  attentionActive = false;
 
 struct Prediction {
@@ -122,30 +119,21 @@ float penteRegression() {
   return (float)(parMesure * 60000.0 / PERIODE_MESURE);
 }
 
-// vibration : seuil adaptatif appris sur le fonctionnement normal
-bool analyseVibration(float vib, bool apprentissageAutorise) {
-  if (vibNb == 0) baseMu = vib;
-  float sigma = sqrtf(baseVar);
-  if (sigma < SIGMA_MIN) sigma = SIGMA_MIN;
-  bool depasse = (vibNb >= N_MIN_BASE) && (vib > baseMu + K_SIGMA * sigma);
-  vibConsec = depasse ? vibConsec + 1 : 0;
-  if (!depasse && apprentissageAutorise) {            // on n'apprend jamais pendant un defaut
-    float d = vib - baseMu;
-    baseMu += ALPHA_BASE * d;
-    baseVar = (1 - ALPHA_BASE) * (baseVar + ALPHA_BASE * d * d);
-  }
-  if (vibNb < 1000) vibNb++;
+// vibration : avertissement si elle reste entre 2,0 et 3,0 m/s2 (au-dela de 3,0, le moteur est coupe)
+bool analyseVibration(float vib) {
+  bool zoneOrange = (vib >= VIB_ATTENTION) && (vib < VIB_COUPURE);
+  vibConsec = zoneOrange ? vibConsec + 1 : 0;
   return vibConsec >= 2;                              // 2 mesures de suite : pas de fausse alerte
 }
 
-Prediction predire(bool mesureValide, float t, float vib, bool marche) {
+Prediction predire(bool tempOk, float t, bool vibOk, float vib, bool marche) {
   Prediction p;
   p.moyenneOk = p.penteOk = p.restantOk = false;
   p.moyenne = p.pente = p.restant = 0;
   p.raison[0] = '\0';
 
-  if (mesureValide) ajouterTemperature(t);
-  bool vibAnormale = analyseVibration(vib, marche && !attentionActive);
+  if (tempOk) ajouterTemperature(t);
+  bool vibAnormale = vibOk ? analyseVibration(vib) : false;
 
   if (fenNb >= N_MOY) { p.moyenne = moyenneMobile(); p.moyenneOk = true; }
   if (fenNb >= N_MIN_PENTE) { p.pente = penteRegression(); p.penteOk = true; }
@@ -352,7 +340,9 @@ void loop() {
   float vib = fabs(norme - 9.81);
 
   // 2) Validation
-  bool mesureValide = !(isnan(t) || t < -40 || t > 80);
+  bool tempOk = !(isnan(t) || t < -40 || t > 80);
+  bool vibOk  = !(isnan(vib) || vib < 0);          // pas un nombre, ou negatif (impossible)
+  bool mesureValide = tempOk && vibOk;               // une seule mesure fausse suffit a invalider
 
   // 3) Decision locale (priorite absolue, inchangee)
   if (!mesureValide) {
@@ -361,11 +351,11 @@ void loop() {
     if (t >= TEMP_COUPURE) couperMoteur("temperature trop elevee");
     else if (vib >= VIB_COUPURE) couperMoteur("vibration trop forte");
   } else {
-    if (!arretDistant && t < TEMP_REDEMARRE && vib < VIB_COUPURE) redemarrerMoteur();
+    if (!arretDistant && t < TEMP_REDEMARRE && vib < VIB_REDEMARRE) redemarrerMoteur();
   }
 
   // 4) Maintenance predictive (apres la decision : elle avertit, elle ne decide pas)
-  Prediction p = predire(mesureValide, t, vib, moteurMarche);
+  Prediction p = predire(tempOk, t, vibOk, vib, moteurMarche);
   if (strcmp(p.etat, etatPrecedent) != 0) {            // message seulement quand l'etat change
     if (strcmp(p.etat, "ATTENTION") == 0) {
       char msg[64];
@@ -382,11 +372,13 @@ void loop() {
   // 5) Publication : JSON 1 = mesures brutes, JSON 2 = prediction
   long ts = horodatage();
   char tbuf[16];
-  nombre(tbuf, sizeof(tbuf), mesureValide, t, 1);
+  char vbuf[16];
+  nombre(tbuf, sizeof(tbuf), tempOk, t, 1);
+  nombre(vbuf, sizeof(vbuf), vibOk, vib, 2);
   char json[200];
   snprintf(json, sizeof(json),
-           "{\"ts\":%ld,\"temperature\":%s,\"vibration\":%.2f,\"statut\":\"%s\"}",
-           ts, tbuf, vib, moteurMarche ? "MARCHE" : "ARRET");
+           "{\"ts\":%ld,\"temperature\":%s,\"vibration\":%s,\"statut\":\"%s\"}",
+           ts, tbuf, vbuf, moteurMarche ? "MARCHE" : "ARRET");
   publier(T_MES, json);
 
   char mbuf[16], pbuf[16], rbuf[16];
