@@ -24,7 +24,7 @@
       "top": 147,
       "left": 191.1,
       "rotate": 90,
-      "attrs": { "temperature": "24.8" }
+      "attrs": { "temperature": "69.8" }
     },
     {
       "type": "wokwi-mpu6050",
