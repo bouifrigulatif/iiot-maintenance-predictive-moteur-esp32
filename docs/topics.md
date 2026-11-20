@@ -41,13 +41,13 @@ Les identifiants (utilisateur et mot de passe) ne sont JAMAIS écrits dans ce d�
 
 ## Règles de fonctionnement
 
-- **Protection (décidée localement par l'ESP32, jamais par le réseau, priorité absolue)** : coupure à 75 °C ou vibration >= 3,0 ; redémarrage automatique sous 60 °C.
-- **Maintenance prédictive (avertit, ne coupe jamais)** : `ATTENTION` si la moyenne atteint 70 °C (retour sous 68 °C), ou si la température monte d'au moins 5 °C/min au-dessus de 45 °C, ou si la coupure est estimée dans moins de 120 s, ou si la vibration dépasse un seuil adaptatif (moyenne apprise + 4 écarts-types, confirmé sur 2 mesures).
-- `OFF` : coupe le moteur et le verrouille. `ON` : enlève seulement le verrou, le moteur ne redémarre que si la température est sous 60 °C et la vibration sous 3,0.
+- **Protection (décidée localement par l'ESP32, jamais par le réseau, priorité absolue)** : coupure à 75 °C ou vibration >= 3,0 ; redémarrage automatique sous 60 °C et sous 2.
+- **Maintenance prédictive (avertit, ne coupe jamais)** : `ATTENTION` si la moyenne atteint 70 °C (retour sous 68 °C), ou si la température monte d'au moins 5 °C/min au-dessus de 45 °C, ou si la coupure est estimée dans moins de 120 s, si la vibration dépasse 2.
+- `OFF` : coupe le moteur et le verrouille. `ON` : enlève seulement le verrou, le moteur ne redémarre que si la température est sous 60 °C et la vibration sous 2,5.
 - Les commandes ne sont pas retained : un OFF ancien ne doit jamais être rejoué au redémarrage.
 - Toute autre valeur que `ON` ou `OFF` est ignorée.
 - Client ID de l'ESP32 : `esp32-moteur-1`. Il doit être unique : un client Node-RED ou EMQX Web doit utiliser un autre identifiant.
-- Abonnement conseillé pour Node-RED : `usine/ligne1/#`.
+- Abonnement pour Node-RED : `usine/ligne1/#`.
 
 ## Utilisateurs MQTT (créés dans EMQX)
 
