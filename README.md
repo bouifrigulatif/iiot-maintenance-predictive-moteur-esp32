@@ -12,7 +12,6 @@ rôle de la DMZ) -> Node-RED -> décision locale et commande distante.
 - firmware/ : programme de l'ESP32 et câblage Wokwi
 - broker/ : comptes du broker, liste des topics
 - dashboard/ : flux Node-RED
-- docs/ : segmentation IT/OT (VLAN, DMZ), Packet Tracer, tests, rapport
 - data/ : journal horodaté d'exemple
  
 ## Ce qui n'est pas dans le dépôt
