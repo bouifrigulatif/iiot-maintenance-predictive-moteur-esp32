@@ -4,10 +4,6 @@
 
 - Service : **EMQX Cloud Serverless** (broker MQTT cloud gratuit), déploiement `iiot-moteur`.
 - Région : Europe (AWS, Francfort).
-- Pourquoi pas HiveMQ Cloud : il ne propose plus de formule gratuite aux nouveaux comptes (essai de 15 jours seulement).
-- Pourquoi pas Mosquitto en local : le simulateur Wokwi tourne dans le cloud et ne peut pas joindre un broker installé sur un PC personnel.
-- Plafond de dépense (Spend Limit) fixé à 0 : le service ne peut pas être facturé.
-
 ## Paramètres de connexion
 
 | Paramètre | Valeur |
@@ -43,14 +39,6 @@ Les mots de passe ne sont **jamais** écrits dans le dépôt. Ils sont transmis 
 - **QoS** : voir `docs/topics.md` pour le détail et la justification.
 - **Client ID unique** : deux clients avec le même identifiant se déconnectent mutuellement.
 
-## Tests réalisés sur le broker
-
-- Abonnement à `usine/ligne1/#` avec le client MQTT de la console EMQX : les messages de l'ESP32 arrivent.
-- Connexion avec un mauvais mot de passe : refusée.
-- Connexion avec le bon compte : acceptée.
-- Messages retained et Last Will : vérifiés dans la console EMQX.
-
-Les captures sont dans `docs/captures` (sans mot de passe visible).
 
 ## Procédure de changement de mot de passe
 
